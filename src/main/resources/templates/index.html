@@ -2,15 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Databasee Foorumi: Ideal for Sharing Your Home Videos</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>Tervetuloa Databasee Foorumille!</h1>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
+        <ol>
+            <li th:each="aihe: ${alueet}">
+                <span th:text="${aihe.nimi}">aihealueen nimi</span> <a th:href="${'/'}">Osallistu keskusteluun</a> <!--alue/' + alue.id-->
+            </li>
+        </ol>
+        
+        <form method='POST' action='/'>
+            <h2>Nimi:</h2>
+            <input type='text' name='nimi'></input>
+            <input type='submit' value='Lisää alue'/>
+        </form>
+        
+        <p><a href="/kayttajat">Tästä kayttajalistaukseen.</a></p>
     </body>
 </html>
