@@ -53,7 +53,7 @@ public class AlueDao implements Dao<Alue, Integer> {
     @Override
     public Alue findOne(Integer key) throws SQLException {
         Connection con = database.getConnection();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM Alue WHERE alueen_id = ?");
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM Viestit WHERE alueen_id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
