@@ -24,7 +24,7 @@ public class ViestiDao implements Dao<Viesti, String> {
     @Override
     public Viesti findOne(String key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE alue");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti WHERE alue = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();

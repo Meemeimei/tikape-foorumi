@@ -53,21 +53,21 @@ public class Main {
             data.put("Keskustelut", v);
 //            data.put("alue_id", alueDao.findOne(Integer.parseInt(req.params(":id"))));
 
-            return new ModelAndView(data, "index");
+            return new ModelAndView(data, "alue");
         }, new ThymeleafTemplateEngine());
 
-        post("/alyue/:id", (req, res) -> {
-//            String sisalto = req.queryParams("sisalto");
-//            String otsikko = req.queryParams("otsikko");
+        post("/alue/:id", (req, res) -> {
+            String sisalto = req.queryParams("sisalto");
+            String otsikko = req.queryParams("otsikko");
 //
-//            if (otsikko != null) {
-//                Viesti v = new Viesti(otsikko, " ");
-//                viestiDao.InsertOne(v);
-//            }
+            if (otsikko != null) {
+                Viesti v = new Viesti(sisalto , otsikko);
+                viestiDao.InsertOne(v);
+            }
 //            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
-//            HashMap map = new HashMap<>();
+            HashMap map = new HashMap<>();
 //            map.put("Keskustelut", v);
-//            map.put("Keskustelut", alueDao.findAll());
+            map.put("Keskustelut", alueDao.findOne(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "alue");
         }, new ThymeleafTemplateEngine());
@@ -80,6 +80,13 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/kayttaja/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("kayttaja", kayttajaDao.findOne(req.params("id")));
+
+            return new ModelAndView(map, "kayttaja");
+        }, new ThymeleafTemplateEngine());
+        
+        get("/keskustelu/:otsikko", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("kayttaja", kayttajaDao.findOne(req.params("id")));
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Aluesivu</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Alueen keskustelut</h1>
+
+                <ol>
+                    <li th:each="viesti: ${Keskustelut}">
+                        <span th:text="${viesti.otsikko}">aihealueen nimi</span> <a th:href="${'/' + viesti.otsikko}">Osallistu keskusteluun</a>
+                    </li>
+                </ol>
+
+        <form method='POST' action='/'>
+            <h3>Luo uusi keskustelu: </h3>
+            <input type='text' name='otsikko'></input>
+            <input type='text' name='sisalto'></input>
+            <input type='submit' value='Uusi keskustelu'/>
+        </form>
+    </body>
+</html>
