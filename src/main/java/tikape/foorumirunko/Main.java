@@ -47,10 +47,29 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         get("/alue/:id", (req, res) -> {
-            HashMap<String, Object> data = new HashMap<>();
+//            HashMap<String, Object> data = new HashMap<>();
+            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
+            HashMap data = new HashMap<String, Object>();
+            data.put("Keskustelut", v);
+//            data.put("alue_id", alueDao.findOne(Integer.parseInt(req.params(":id"))));
 
-            data.put("alue_id", alueDao.findOne(Integer.parseInt(req.params(":id"))));
             return new ModelAndView(data, "index");
+        }, new ThymeleafTemplateEngine());
+
+        post("/alyue/:id", (req, res) -> {
+//            String sisalto = req.queryParams("sisalto");
+//            String otsikko = req.queryParams("otsikko");
+//
+//            if (otsikko != null) {
+//                Viesti v = new Viesti(otsikko, " ");
+//                viestiDao.InsertOne(v);
+//            }
+//            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
+//            HashMap map = new HashMap<>();
+//            map.put("Keskustelut", v);
+//            map.put("Keskustelut", alueDao.findAll());
+
+            return new ModelAndView(map, "alue");
         }, new ThymeleafTemplateEngine());
 
         get("/kayttajat", (req, res) -> {
