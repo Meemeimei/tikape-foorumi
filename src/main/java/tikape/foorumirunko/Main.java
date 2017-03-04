@@ -31,10 +31,10 @@ public class Main {
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
-        
+
         post("/", (req, res) -> {
             String nimi = req.queryParams("nimi");
-            
+
             if (nimi != null) {
                 int key = alueDao.kuinkaMontaAluetta() + 1;
                 Alue a = new Alue(key, nimi);
@@ -42,8 +42,15 @@ public class Main {
             }
             HashMap map = new HashMap<>();
             map.put("alueet", alueDao.findAll());
-            
+
             return new ModelAndView(map, "index");
+        }, new ThymeleafTemplateEngine());
+
+        get("/alue/:id", (req, res) -> {
+            HashMap<String, Object> data = new HashMap<>();
+
+            data.put("alue_id", alueDao.findOne(Integer.parseInt(req.params(":id"))));
+            return new ModelAndView(data, "index");
         }, new ThymeleafTemplateEngine());
 
         get("/kayttajat", (req, res) -> {
