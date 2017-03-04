@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 package tikape.foorumirunko.database;
 
@@ -10,26 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import tikape.foorumirunko.domain.Kayttaja;
 
-public class KayttajaDao implements Dao {
-=======
-
-package tikape.foorumirunko.database;
-
-import java.sql.*;
-import java.util.*;
-import tikape.foorumirunko.domain.Kayttaja;
-/**
- *
- * @author eemitant
- * @author xvixvi
- */
 public class KayttajaDao implements Dao<Kayttaja, String> {
->>>>>>> origin/daosettia
 
     private Database database;
     
     public KayttajaDao(Database d) {
-        database = d;
+        this.database = d;
     }
     
     @Override
@@ -81,7 +66,9 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Kayttaja WHERE nimimerkki = ?");
         stmt.setObject(1, nimimerkki);
         
-        int kuinkaMoneenRiviinVaikutettiin = stmt.executeUpdate();
+        stmt.execute(); // Eikö pidä olla stmt.execute(); ?
+        
+        int kuinkaMoneenRiviinVaikutettiin = stmt.executeUpdate(); // Toimiikohan executeUdate() vai pitäisikö olla stmt.execute();
         System.out.println("KayttajaDao poisti käyttäjän " + nimimerkki + "muuttaen " + kuinkaMoneenRiviinVaikutettiin + "kpl rivejä");
         
         stmt.close();

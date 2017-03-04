@@ -15,27 +15,27 @@ import tikape.foorumirunko.domain.Alue;
  * @author xvixvi
  */
 public class AlueDao implements Dao<Alue, Integer> {
-    
+
     private Database database;
-    
+
     public AlueDao(Database d) {
         database = d;
     }
-    
+
     public int kuinkaMontaAluetta() throws SQLException {
         Connection connection = database.getConnection();
         Statement stmt = connection.createStatement();
-        
+
         ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Alue");
         int x = Integer.parseInt(rs.getString(1));
-        
+
         rs.close();
         stmt.close();
         connection.close();
-        
+
         return x;
     }
-    
+
     public void InsertOne(Alue a) throws SQLException {
         Connection con = database.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO Alue VALUES (?,?,?,?)");
@@ -43,19 +43,19 @@ public class AlueDao implements Dao<Alue, Integer> {
         stmt.setObject(2, a.getNimi());
         stmt.setObject(3, a.getViestienMaara());
         stmt.setObject(4, a.getViimeisinViesti());
-        
+
         stmt.executeUpdate();
-        
+
         stmt.close();
         con.close();
     }
-    
+
     @Override
     public Alue findOne(Integer key) throws SQLException {
         Connection con = database.getConnection();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM Alue WHERE alueen_id = ?");
         stmt.setObject(1, key);
-        
+
         ResultSet rs = stmt.executeQuery();
         boolean hasOne = rs.next();
         if (!hasOne) {
@@ -76,7 +76,15 @@ public class AlueDao implements Dao<Alue, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Alue WHERE id = ?");
+
+        stmt.setObject(1, key);
+
+        stmt.execute();
+
+        stmt.close();
+        connection.close();
     }
 
     @Override
@@ -97,6 +105,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         stmt.close();
         connection.close();
 
-        return alueet;    }
-    
+        return alueet;
+    }
+
 }

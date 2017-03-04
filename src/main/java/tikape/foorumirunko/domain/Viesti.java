@@ -9,8 +9,29 @@ public class Viesti {
     private String aika;
     private int alueenId;
     
-    public Viesti(Kayttaja kirjoittaja) {
-        this.kayttaja = kirjoittaja;
+    public Viesti(String otsikko, String sisalto) {
+        this.otsikko = otsikko;
+        this.sisalto = sisalto;
+    }
+    
+    public void setKayttaja(Kayttaja kayttaja) {
+        this.kayttaja = kayttaja;
+    }
+    
+    public void setOtsikko(String otsikko) {
+        this.otsikko = otsikko;
+    }
+    
+    public void setSisalto() {
+        this.sisalto = sisalto;
+    }
+    
+    public void setAika(String aika) {
+        this.aika = aika;
+    }
+    
+    public void setAlueenId(int id) {
+        this.alueenId = id;
     }
     
     public Kayttaja getKayttaja() {
