@@ -49,10 +49,10 @@ public class Main {
 
         get("/alue/:id", (req, res) -> {
 //            HashMap<String, Object> data = new HashMap<>();
-            Viesti v = new Viesti("mielensapahoittajat", "pahoitin");
+            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
             HashMap data = new HashMap<String, Object>();
             data.put("Keskustelut", v);
-//          data.put("alue_id", alueDao.findOne(Integer.parseInt(req.params(":id"))));
+//            data.put("alue_id", alueDao.findOne(Integer.parseInt(req.params(":id"))));
             return new ModelAndView(data, "alue");
         }, new ThymeleafTemplateEngine());
 
@@ -81,17 +81,13 @@ public class Main {
                 }
             }
 
-            Viesti v = new Viesti("mielensapahoittaja", "pahoitin");
-            
+            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
             HashMap map = new HashMap<>();
             map.put("Keskustelut", v);
-           
             map.put("Keskustelut", alueDao.findOne(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "alue");
         }, new ThymeleafTemplateEngine());
-        
-        
 
         get("/kayttajat", (req, res) -> {
             HashMap map = new HashMap<>();
@@ -109,9 +105,7 @@ public class Main {
 
         get("/keskustelu/:otsikko", (req, res) -> {
             HashMap map = new HashMap<>();
-            
-            map.put("viestit", viestiDao.findAll());
-            
+            map.put("kayttaja", kayttajaDao.findOne(req.params("id")));
 
             return new ModelAndView(map, "keskustelu");
         }, new ThymeleafTemplateEngine());
