@@ -1,0 +1,71 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Databasee Foorumi: Ideal for Sharing Your Home Videos</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Tervetuloa Databasee Foorumille!</h1>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <B>Alue</B> 
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <B>Viestien määrä</B>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <B>Viimeisin viesti</B>
+        
+        <ol>
+            <li th:each="aihe: ${alueet}">
+                <span th:text="${aihe.nimi}">aihealueen nimi</span> <a th:href="${'/alue/' + aihe.id}">Liity</a> <!--alue/' + alue.id-->
+            </li>
+        </ol>
+        
+        <form method='POST' action='/'>
+            <h2>Nimi:</h2>
+            <input type='text' name='nimi'></input>
+            <input type='submit' value='Lisää alue'/>
+        </form>
+        
+        <p><a href="/kayttajat">Tästä kayttajalistaukseen.</a></p>
+    </body>
+</html>
