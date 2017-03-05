@@ -1,12 +1,14 @@
 
 package tikape.foorumirunko.domain;
 
+import java.sql.Timestamp;
+
 public class Viesti {
     
     private Kayttaja kayttaja;
     private String otsikko;
     private String sisalto;
-    private String aika;
+    private Timestamp aika;
     private int alueenId;
     
     public Viesti(String otsikko, String sisalto) {
@@ -26,7 +28,7 @@ public class Viesti {
         this.sisalto = sisalto;
     }
     
-    public void setAika(String aika) {
+    public void setAika(Timestamp aika) {
         this.aika = aika;
     }
     
@@ -46,7 +48,7 @@ public class Viesti {
         return this.sisalto;
     }
     
-    public String getAika() {
+    public Timestamp getAika() {
         return this.aika;
     }
     

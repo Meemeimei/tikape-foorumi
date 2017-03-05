@@ -79,14 +79,14 @@ public class ViestiDao implements Dao<Viesti, String> {
         connection.close();
     }
     
-        public void InsertOne(Viesti a) throws SQLException {
+        public void insertOne(Viesti a) throws SQLException {
         Connection con = database.getConnection();
         PreparedStatement stmt = con.prepareStatement("INSERT INTO Viesti VALUES (?,?,?,?,?)");
-        stmt.setObject(1, a.getOtsikko());
-        stmt.setObject(2, a.getSisalto());
-        //Kirjoittaja
-        //alue id
-        //aika
+        stmt.setObject(1, a.getAlueenId());
+        stmt.setObject(2, a.getKayttaja());
+        stmt.setObject(3, a.getOtsikko());
+        stmt.setObject(4, a.getSisalto());
+        stmt.setObject(5, a.getAika());
         
         stmt.executeUpdate();
 

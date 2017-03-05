@@ -75,4 +75,15 @@ public class KayttajaDao implements Dao<Kayttaja, String> {
         connection.close();
     }
     
+        public void insertOne(Kayttaja a) throws SQLException {
+        Connection con = database.getConnection();
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO Viesti VALUES (?)");
+        stmt.setObject(1, a.getNimimerkki());
+        
+        stmt.executeUpdate();
+
+        stmt.close();
+        con.close();
+    }
+    
 }

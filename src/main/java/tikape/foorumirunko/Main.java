@@ -1,5 +1,6 @@
 package tikape.foorumirunko;
 
+import java.sql.Timestamp;
 import java.util.*;
 import spark.ModelAndView;
 import static spark.Spark.*;
@@ -52,21 +53,37 @@ public class Main {
             HashMap data = new HashMap<String, Object>();
             data.put("Keskustelut", v);
 //            data.put("alue_id", alueDao.findOne(Integer.parseInt(req.params(":id"))));
-
             return new ModelAndView(data, "alue");
         }, new ThymeleafTemplateEngine());
 
         post("/alue/:id", (req, res) -> {
-            String sisalto = req.queryParams("sisalto");
+            String nimimerkki = req.queryParams("nimimerkki");
             String otsikko = req.queryParams("otsikko");
-//
+            String sisalto = req.queryParams("sisalto");
+            
             if (otsikko != null) {
-                Viesti v = new Viesti(sisalto , otsikko);
-                viestiDao.InsertOne(v);
+                Viesti v = new Viesti(sisalto, otsikko);
+                viestiDao.insertOne(v);
+                if (kayttajaDao.findOne(nimimerkki) == null) {
+                    Kayttaja uusiK = new Kayttaja(nimimerkki);
+                    kayttajaDao.insertOne(uusiK);
+                    v.setKayttaja(uusiK);
+                    v.setAlueenId(Integer.parseInt(req.params("id")));
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    v.setAika(timestamp);
+                } else {
+                    Kayttaja k = kayttajaDao.findOne(nimimerkki);
+                    kayttajaDao.insertOne(k);
+                    v.setKayttaja(k);
+                    v.setAlueenId(Integer.parseInt(req.params("id")));
+                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                    v.setAika(timestamp);
+                }
             }
+
 //            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
             HashMap map = new HashMap<>();
-//            map.put("Keskustelut", v);
+            map.put("Keskustelut", v);
             map.put("Keskustelut", alueDao.findOne(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "alue");
@@ -85,7 +102,7 @@ public class Main {
 
             return new ModelAndView(map, "kayttaja");
         }, new ThymeleafTemplateEngine());
-        
+
         get("/keskustelu/:otsikko", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("kayttaja", kayttajaDao.findOne(req.params("id")));
