@@ -15,10 +15,12 @@
                     </li>
                 </ol>
 
-        <form method='POST' action='/'>
+        <form method='POST'>
             <h3>Luo uusi keskustelu: </h3>
-            <input type='text' name='otsikko'></input>
-            <input type='text' name='sisalto'></input>
+            <input type='text' name='nimimerkki' value='Nimimerkki'></input><br /> <br />
+            <input type='text' name='otsikko' value='Otsikko'></input><br /> <br />
+            <!--<input type='text' name='sisalto'></input>-->
+            <textarea name="sisalto" id="sisalto" rows="15" cols="40">Kirjoita viestisi tänne...</textarea>
             <input type='submit' value='Uusi keskustelu'/>
         </form>
     </body>
