@@ -14,7 +14,7 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <B>Alue</B> 
+        <B>Alue:</B> 
         &nbsp;
         &nbsp;
         &nbsp;
@@ -39,7 +39,7 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <B>Viestien määrä</B>
+        <B>Viestien määrä:</B>
         &nbsp;
         &nbsp;
         &nbsp;
@@ -52,11 +52,50 @@
         &nbsp;
         &nbsp;
         &nbsp;
-        <B>Viimeisin viesti</B>
+        <B>Viimeisin viesti:</B>
         
         <ol>
             <li th:each="aihe: ${alueet}">
                 <span th:text="${aihe.nimi}">aihealueen nimi</span> <a th:href="${'/alue/' + aihe.id}">Liity</a> <!--alue/' + alue.id-->
+                &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+                <span th:text="${aihe.viestienMaara}">aihealueen nimi</span>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+           
             </li>
         </ol>
         
