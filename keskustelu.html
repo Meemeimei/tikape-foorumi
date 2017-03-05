@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Keskustelusivu</title>
+        <meta charset="utf-8" />
+    </head>
+
+    <body>
+        <h1>Otsikko: </h1>
+        
+         
+        
+        <ol>
+            <li th:each="viesti: ${viestit}">
+                <span th:text="${viesti.nimi}">viestit</span> 
+            </li>
+        </ol>
+        
+        
+        
+    <form method='POST'>
+            <h3>Lisää uusi viesti: </h3>
+            <input type='text' name='nimimerkki' value='Nimimerkki'></input><br /> <br />
+            <!--<input type='text' name='sisalto'></input>-->
+            <textarea name="sisalto" id="sisalto" rows="15" cols="40">Kirjoita viestisi tänne...</textarea>
+            <input type='submit' value='Lisää viesti'/>
+        </form>     
+        
+        
+        <a th:href="${'/alue/aihe.id'}">Takaisin keskusteluihin</a>
+    </body>
+</html>
