@@ -11,7 +11,12 @@
 
         <ol>
             <li th:each="aihe: ${alueet}">
-                <span th:text="${aihe.nimi}">aihealueen nimi</span> <a th:href="${'/alue/' + aihe.id}">Osallistu keskusteluun</a> <!--alue/' + alue.id-->
+                <span th:text="${aihe.nimi}">aihealueen nimi</span>
+                <span>- viestien määrä: </span>
+                <span th:text="${aihe.viestienMaara}">viestien määrä</span>
+                <span>- viimeisin viesti: </span>
+                <span th:text="${aihe.viimeisinViesti}">viimeisin viesti</span>
+                <a th:href="${'/alue/' + aihe.id}">Osallistu keskusteluun</a> <!--alue/' + alue.id-->
             </li>
         </ol>
         

@@ -81,7 +81,7 @@ public class Main {
                 }
             }
 
-//            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
+            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
             HashMap map = new HashMap<>();
             map.put("Keskustelut", v);
             map.put("Keskustelut", alueDao.findOne(Integer.parseInt(req.params("id"))));
