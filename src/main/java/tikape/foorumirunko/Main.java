@@ -11,11 +11,11 @@ import tikape.foorumirunko.domain.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        /* //herokuun siirtymiseen liittyvä portinhakusetti
+        //herokuun siirtymiseen liittyvä portinhakusetti
          if (System.getenv("PORT") != null) {
          port(Integer.valueOf(System.getenv("PORT")));
          }
-         */
+         
 
         Database database = new Database("jdbc:sqlite:foorumi.db");
         database.dropAllTables();
