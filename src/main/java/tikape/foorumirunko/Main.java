@@ -12,10 +12,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         //herokuun siirtymiseen liittyvä portinhakusetti
-         if (System.getenv("PORT") != null) {
-         port(Integer.valueOf(System.getenv("PORT")));
-         }
-         
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
 
         Database database = new Database("jdbc:sqlite:foorumi.db");
         database.dropAllTables();
@@ -56,34 +55,40 @@ public class Main {
             return new ModelAndView(data, "alue");
         }, new ThymeleafTemplateEngine());
 
+        get("/kayttaja/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            map.put("kayttaja", kayttajaDao.findOne(req.params("id")));
+
+            return new ModelAndView(map, "kayttaja");
+        }, new ThymeleafTemplateEngine());
+
         post("/alue/:id", (req, res) -> {
             String nimimerkki = req.queryParams("nimimerkki");
             String otsikko = req.queryParams("otsikko");
             String sisalto = req.queryParams("sisalto");
-            
-            if (otsikko != null) {
-                Viesti v = new Viesti(sisalto, otsikko);
-                viestiDao.insertOne(v);
-                if (kayttajaDao.findOne(nimimerkki) == null) {
-                    Kayttaja uusiK = new Kayttaja(nimimerkki);
-                    kayttajaDao.insertOne(uusiK);
-                    v.setKayttaja(uusiK);
-                    v.setAlueenId(Integer.parseInt(req.params("id")));
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    v.setAika(timestamp);
-                } else {
-                    Kayttaja k = kayttajaDao.findOne(nimimerkki);
-                    kayttajaDao.insertOne(k);
-                    v.setKayttaja(k);
-                    v.setAlueenId(Integer.parseInt(req.params("id")));
-                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                    v.setAika(timestamp);
-                }
+
+            Viesti v = new Viesti(sisalto, otsikko);
+
+            if (kayttajaDao.findOne(nimimerkki) == null) {
+                Kayttaja uusiK = new Kayttaja(nimimerkki);
+                kayttajaDao.insertOne(uusiK);
+                v.setKayttaja(uusiK);
+                v.setAlueenId(Integer.parseInt(req.params("id")));
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                v.setAika(timestamp);
+            } else {
+                Kayttaja k = kayttajaDao.findOne(nimimerkki);
+                kayttajaDao.insertOne(k);
+                v.setKayttaja(k);
+                v.setAlueenId(Integer.parseInt(req.params("id")));
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                v.setAika(timestamp);
             }
 
-            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
+//            Viesti v = new Viesti("mielensäpahoittaja", "pahoitin");
             HashMap map = new HashMap<>();
-            map.put("Keskustelut", v);
+//            map.put("Keskustelut", v);
+            viestiDao.insertOne(v);
             map.put("Keskustelut", alueDao.findOne(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "alue");
@@ -94,13 +99,6 @@ public class Main {
             map.put("kayttajat", kayttajaDao.findAll());
 
             return new ModelAndView(map, "kayttajat");
-        }, new ThymeleafTemplateEngine());
-
-        get("/kayttaja/:id", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("kayttaja", kayttajaDao.findOne(req.params("id")));
-
-            return new ModelAndView(map, "kayttaja");
         }, new ThymeleafTemplateEngine());
 
         get("/keskustelu/:otsikko", (req, res) -> {
